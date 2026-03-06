@@ -1,0 +1,86 @@
+{
+  "projectType": "general",
+  "projectName": "Mintlify Starter Kit",
+  "projectDescription": "A comprehensive starter template for building beautiful documentation sites with Mintlify",
+  "theme": "mint",
+  "primaryColor": "#54545c",
+  "lightColor": null,
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "quickstart",
+              "development"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Writing content",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "AI tools",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "API documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoint examples",
+            "pages": [
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Quick setup with pre-configured documentation structure",
+    "Examples of Mintlify components and features",
+    "AI-assisted documentation writing with Cursor, Claude Code, and Windsurf",
+    "Sample API reference with OpenAPI integration",
+    "Customizable navigation and settings",
+    "Reusable content snippets and markdown examples"
+  ],
+  "publicApiSurface": [
+    "docs.json configuration file",
+    "MDX page templates",
+    "OpenAPI specification example",
+    "AI tools integration guides",
+    "Mintlify CLI commands (mint dev, mint broken-links)",
+    "Component examples (Card, Accordion, Steps, CodeGroup)"
+  ]
+}
