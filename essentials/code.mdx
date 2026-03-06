@@ -1,6 +1,6 @@
 ---
 title: 'Code blocks'
-description: 'Display inline code and code blocks'
+description: 'Display inline code and code blocks with syntax highlighting'
 icon: 'code'
 ---
 
@@ -8,13 +8,37 @@ icon: 'code'
 
 To denote a `word` or `phrase` as code, enclose it in backticks (`).
 
-```
+```md
 To denote a `word` or `phrase` as code, enclose it in backticks (`).
 ```
 
 ## Code blocks
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting.
+
+### Basic syntax
+
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet('World');
+```
+
+````md
+```javascript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet('World');
+```
+````
+
+### With filename
+
+Optionally, you can write the name of your code file after the programming language:
 
 ```java HelloWorld.java
 class HelloWorld {
@@ -33,3 +57,365 @@ class HelloWorld {
 }
 ```
 ````
+
+## Supported languages
+
+Mintlify supports syntax highlighting for over 100 programming languages:
+
+<Tabs>
+  <Tab title="JavaScript">
+    ```javascript
+    const user = {
+      name: 'Alice',
+      email: 'alice@example.com'
+    };
+    
+    console.log(user.name);
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    def fibonacci(n):
+        if n <= 1:
+            return n
+        return fibonacci(n-1) + fibonacci(n-2)
+    
+    print(fibonacci(10))
+    ```
+  </Tab>
+  <Tab title="TypeScript">
+    ```typescript
+    interface User {
+      id: number;
+      name: string;
+      email: string;
+    }
+    
+    const createUser = (data: User): User => {
+      return { ...data };
+    };
+    ```
+  </Tab>
+  <Tab title="Go">
+    ```go
+    package main
+    
+    import "fmt"
+    
+    func main() {
+        fmt.Println("Hello, World!")
+    }
+    ```
+  </Tab>
+  <Tab title="Rust">
+    ```rust
+    fn main() {
+        let message = "Hello, World!";
+        println!("{}", message);
+    }
+    ```
+  </Tab>
+  <Tab title="Ruby">
+    ```ruby
+    class Greeter
+      def initialize(name)
+        @name = name
+      end
+      
+      def greet
+        puts "Hello, #{@name}!"
+      end
+    end
+    
+    greeter = Greeter.new("World")
+    greeter.greet
+    ```
+  </Tab>
+</Tabs>
+
+## Line highlighting
+
+Highlight specific lines in your code blocks to draw attention to important parts:
+
+```javascript {2,5-7}
+function calculateTotal(items) {
+  let total = 0; // This line is highlighted
+  
+  items.forEach(item => {
+    total += item.price; // These lines
+    total += item.tax;   // are also
+    total -= item.discount; // highlighted
+  });
+  
+  return total;
+}
+```
+
+````md
+```javascript {2,5-7}
+function calculateTotal(items) {
+  let total = 0; // This line is highlighted
+  
+  items.forEach(item => {
+    total += item.price; // These lines
+    total += item.tax;   // are also
+    total -= item.discount; // highlighted
+  });
+  
+  return total;
+}
+```
+````
+
+## CodeGroup
+
+Use CodeGroup to display multiple code examples in tabs, perfect for showing the same functionality in different languages:
+
+<CodeGroup>
+
+```javascript JavaScript
+const response = await fetch('https://api.example.com/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'Alice',
+    email: 'alice@example.com'
+  })
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+response = requests.post(
+    'https://api.example.com/users',
+    json={
+        'name': 'Alice',
+        'email': 'alice@example.com'
+    }
+)
+
+data = response.json()
+print(data)
+```
+
+```go Go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "net/http"
+)
+
+func main() {
+    user := map[string]string{
+        "name":  "Alice",
+        "email": "alice@example.com",
+    }
+    
+    jsonData, _ := json.Marshal(user)
+    resp, _ := http.Post(
+        "https://api.example.com/users",
+        "application/json",
+        bytes.NewBuffer(jsonData),
+    )
+    defer resp.Body.Close()
+}
+```
+
+```bash cURL
+curl -X POST https://api.example.com/users \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Alice",
+    "email": "alice@example.com"
+  }'
+```
+
+</CodeGroup>
+
+````md
+<CodeGroup>
+
+```javascript JavaScript
+const response = await fetch('https://api.example.com/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    name: 'Alice',
+    email: 'alice@example.com'
+  })
+});
+```
+
+```python Python
+import requests
+
+response = requests.post(
+    'https://api.example.com/users',
+    json={
+        'name': 'Alice',
+        'email': 'alice@example.com'
+    }
+)
+```
+
+</CodeGroup>
+````
+
+## Shell commands
+
+Display terminal commands and their output:
+
+```bash
+$ npm install mintlify
+$ mint dev
+
+> Starting local development server...
+> Ready on http://localhost:3000
+```
+
+````md
+```bash
+$ npm install mintlify
+$ mint dev
+
+> Starting local development server...
+> Ready on http://localhost:3000
+```
+````
+
+## JSON and configuration files
+
+Show configuration examples with proper formatting:
+
+```json package.json
+{
+  "name": "my-docs",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "mint dev",
+    "build": "mint build"
+  },
+  "dependencies": {
+    "mintlify": "^4.0.0"
+  }
+}
+```
+
+```yaml .github/workflows/deploy.yml
+name: Deploy Documentation
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to Mintlify
+        run: mint deploy
+```
+
+## Diff highlighting
+
+Show code changes with diff syntax:
+
+```diff
+  function greet(name) {
+-   console.log('Hello ' + name);
++   console.log(`Hello, ${name}!`);
+  }
+```
+
+````md
+```diff
+  function greet(name) {
+-   console.log('Hello ' + name);
++   console.log(`Hello, ${name}!`);
+  }
+```
+````
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Always specify the language" icon="language">
+    Always include the language identifier for proper syntax highlighting:
+    
+    ✅ Good: ` ```javascript`
+    
+    ❌ Bad: ` ``` `
+  </Accordion>
+  
+  <Accordion title="Keep examples concise" icon="scissors">
+    Show only the relevant code. Remove boilerplate and focus on what matters:
+    
+    ```javascript
+    // Good: Focused example
+    const result = await api.createUser(data);
+    
+    // Bad: Too much context
+    import { api } from './api';
+    import { config } from './config';
+    import { logger } from './logger';
+    // ... many more imports ...
+    const result = await api.createUser(data);
+    ```
+  </Accordion>
+  
+  <Accordion title="Add comments for clarity" icon="comment">
+    Use comments to explain non-obvious code:
+    
+    ```python
+    def calculate_score(value):
+        # Normalize the value to 0-100 range
+        normalized = (value - min_value) / (max_value - min_value) * 100
+        return normalized
+    ```
+  </Accordion>
+  
+  <Accordion title="Use CodeGroup for multi-language examples" icon="layer-group">
+    When showing the same functionality in different languages, use CodeGroup instead of separate code blocks. This improves readability and lets users quickly switch between languages.
+  </Accordion>
+</AccordionGroup>
+
+## Common languages reference
+
+Here are some commonly used language identifiers:
+
+<Columns cols={3}>
+  <div>
+    - `javascript` / `js`
+    - `typescript` / `ts`
+    - `python` / `py`
+    - `java`
+    - `csharp` / `cs`
+  </div>
+  <div>
+    - `go`
+    - `rust` / `rs`
+    - `ruby` / `rb`
+    - `php`
+    - `swift`
+  </div>
+  <div>
+    - `bash` / `sh`
+    - `json`
+    - `yaml` / `yml`
+    - `sql`
+    - `markdown` / `md`
+  </div>
+</Columns>
+
+<Tip>
+  For a complete list of supported languages, see the [Prism.js documentation](https://prismjs.com/#supported-languages).
+</Tip>

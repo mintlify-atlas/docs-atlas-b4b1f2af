@@ -1,35 +1,113 @@
 ---
 title: 'Images and embeds'
-description: 'Add image, video, and other HTML elements'
+description: 'Add images, videos, and other media to your documentation'
 icon: 'image'
 ---
 
 <img
   style={{ borderRadius: '0.5rem' }}
   src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+  alt="Big Bend National Park"
 />
 
-## Image
+## Images
 
-### Using Markdown
+### Using Markdown syntax
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code:
 
 ```md
-![title](/path/image.jpg)
+![Alt text](./images/example.jpg)
 ```
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+<Note>
+  Image file size must be less than 5MB. For larger images, host them on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/).
+</Note>
 
-### Using embeds
+### Using HTML img tags
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+For more customization, use HTML `<img>` tags with inline styles:
 
 ```html
-<img height="200" src="/path/image.jpg" />
+<img height="200" src="/path/to/image.jpg" alt="Description" />
 ```
 
-## Embeds and HTML elements
+### With rounded corners
+
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+  alt="Rounded image example"
+/>
+
+```html
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+  alt="Rounded image example"
+/>
+```
+
+### Controlling size
+
+Specify width and height to control image dimensions:
+
+<img
+  width="400"
+  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+  alt="Sized image example"
+/>
+
+```html
+<img
+  width="400"
+  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+  alt="Sized image example"
+/>
+```
+
+## Image organization
+
+<Tabs>
+  <Tab title="Local images">
+    Store images in your docs directory:
+    
+    ```
+    docs/
+    ├── images/
+    │   ├── logo.png
+    │   ├── screenshot.jpg
+    │   └── diagram.svg
+    └── getting-started.mdx
+    ```
+    
+    Reference them using root-relative paths:
+    
+    ```md
+    ![Logo](./images/logo.png)
+    ```
+  </Tab>
+  
+  <Tab title="Remote images">
+    Host images on a CDN or image hosting service:
+    
+    ```md
+    ![Hero](https://example.com/images/hero.jpg)
+    ```
+    
+    Benefits:
+    - Faster page loads
+    - No file size limits
+    - Image optimization
+    - Better caching
+  </Tab>
+</Tabs>
+
+## Video embeds
+
+Embed videos using iframes for platforms like YouTube, Vimeo, or Loom.
+
+### YouTube
 
 <iframe
   width="560"
@@ -42,18 +120,236 @@ To get more customizability with images, you can also use [embeds](/writing-cont
   style={{ width: '100%', borderRadius: '0.5rem' }}
 ></iframe>
 
-<br />
+```html
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  style={{ width: '100%', borderRadius: '0.5rem' }}
+></iframe>
+```
 
-<Tip>
+### Loom
 
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
-
-</Tip>
-
-### iFrames
-
-Loads another HTML page within the document. Most commonly used for embedding videos.
+<iframe
+  src="https://www.loom.com/embed/YOUR_VIDEO_ID"
+  frameBorder="0"
+  allowFullScreen
+  style={{ width: '100%', height: '400px', borderRadius: '0.5rem' }}
+></iframe>
 
 ```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
+<iframe
+  src="https://www.loom.com/embed/YOUR_VIDEO_ID"
+  frameBorder="0"
+  allowFullScreen
+  style={{ width: '100%', height: '400px', borderRadius: '0.5rem' }}
+></iframe>
+```
+
+<Tip>
+  For YouTube videos, replace the watch URL `youtube.com/watch?v=VIDEO_ID` with the embed URL `youtube.com/embed/VIDEO_ID`.
+</Tip>
+
+## Image frames
+
+Add frames to images to make screenshots look more polished:
+
+<Frame>
+  <img
+    src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+    alt="Framed image"
+  />
+</Frame>
+
+```mdx
+<Frame>
+  <img
+    src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+    alt="Framed image"
+  />
+</Frame>
+```
+
+### Frame with caption
+
+<Frame caption="Beautiful landscape from Big Bend National Park">
+  <img
+    src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+    alt="Big Bend landscape"
+  />
+</Frame>
+
+```mdx
+<Frame caption="Beautiful landscape from Big Bend National Park">
+  <img
+    src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
+    alt="Big Bend landscape"
+  />
+</Frame>
+```
+
+## Image comparison
+
+Show before and after or compare different approaches:
+
+<Columns cols={2}>
+  <Frame caption="Before optimization">
+    <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" />
+  </Frame>
+  <Frame caption="After optimization">
+    <img src="https://mintlify-assets.b-cdn.net/bigbend.jpg" />
+  </Frame>
+</Columns>
+
+```mdx
+<Columns cols={2}>
+  <Frame caption="Before optimization">
+    <img src="/images/before.jpg" />
+  </Frame>
+  <Frame caption="After optimization">
+    <img src="/images/after.jpg" />
+  </Frame>
+</Columns>
+```
+
+## Diagrams and charts
+
+You can embed interactive diagrams and charts:
+
+### Mermaid diagrams
+
+```mermaid
+graph LR
+    A[User] --> B[API Gateway]
+    B --> C[Auth Service]
+    B --> D[Data Service]
+    C --> E[Database]
+    D --> E
+```
+
+````md
+```mermaid
+graph LR
+    A[User] --> B[API Gateway]
+    B --> C[Auth Service]
+    B --> D[Data Service]
+    C --> E[Database]
+    D --> E
+```
+````
+
+## GIFs and animations
+
+Use GIFs to demonstrate workflows or UI interactions:
+
+<img
+  src="https://example.com/demo.gif"
+  alt="Feature demonstration"
+  style={{ borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}
+/>
+
+```html
+<img
+  src="/images/demo.gif"
+  alt="Feature demonstration"
+  style={{ borderRadius: '0.5rem', border: '1px solid #e5e7eb' }}
+/>
+```
+
+<Warning>
+  Keep GIF file sizes small (under 2MB) for fast loading. Consider using video formats like MP4 for longer demonstrations.
+</Warning>
+
+## Icons and logos
+
+Display small icons and logos inline with text:
+
+Supported by <img src="/images/chrome.svg" alt="Chrome" height="16" style={{ display: 'inline', verticalAlign: 'middle' }} /> Chrome and <img src="/images/firefox.svg" alt="Firefox" height="16" style={{ display: 'inline', verticalAlign: 'middle' }} /> Firefox.
+
+```html
+Supported by <img src="/images/chrome.svg" alt="Chrome" height="16" style={{ display: 'inline', verticalAlign: 'middle' }} /> Chrome
+```
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Always include alt text" icon="text">
+    Alt text improves accessibility and SEO:
+    
+    ✅ Good: `![User dashboard screenshot](dashboard.png)`
+    
+    ❌ Bad: `![](dashboard.png)`
+  </Accordion>
+  
+  <Accordion title="Optimize image sizes" icon="gauge-high">
+    - Use appropriate dimensions (don't upload 4K images for thumbnails)
+    - Compress images before adding them
+    - Consider WebP format for better compression
+    - Keep file sizes under 200KB when possible
+  </Accordion>
+  
+  <Accordion title="Use descriptive filenames" icon="file-signature">
+    Use clear, descriptive names:
+    
+    ✅ Good: `user-dashboard-dark-mode.png`
+    
+    ❌ Bad: `screenshot1.png`, `IMG_1234.jpg`
+  </Accordion>
+  
+  <Accordion title="Choose the right format" icon="image">
+    - **PNG**: Screenshots, logos, images with transparency
+    - **JPG**: Photos, complex images without transparency
+    - **SVG**: Icons, simple illustrations (scalable)
+    - **GIF**: Simple animations
+    - **WebP**: Modern format with better compression
+  </Accordion>
+  
+  <Accordion title="Consider dark mode" icon="moon">
+    Some images may not look good in dark mode. You can provide different images for light and dark themes:
+    
+    ```html
+    <img
+      src="/images/diagram-light.png"
+      className="block dark:hidden"
+    />
+    <img
+      src="/images/diagram-dark.png"
+      className="hidden dark:block"
+    />
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## HTML elements
+
+<Tip>
+  Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This gives you infinite flexibility for custom layouts and styling.
+</Tip>
+
+### Custom styling
+
+Use inline styles or CSS classes for custom appearance:
+
+```html
+<div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+  <img src="/icon.png" width="40" />
+  <p>Text next to image</p>
+</div>
+```
+
+### Responsive images
+
+Make images responsive to different screen sizes:
+
+```html
+<img
+  src="/image.jpg"
+  style={{ maxWidth: '100%', height: 'auto' }}
+  alt="Responsive image"
+/>
 ```

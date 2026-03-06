@@ -9,6 +9,7 @@ Set up Cursor to help you write and maintain your Mintlify documentation.
 ## Prerequisites
 
 - Cursor editor installed
+- A Mintlify documentation project
 
 ## Setup
 
@@ -24,16 +25,86 @@ Set up Cursor to help you write and maintain your Mintlify documentation.
   npx skills add https://mintlify.com/docs
   ```
 
-  This gives Cursor Mintlify's component reference, writing standards,
-  and workflow guidance.
+  This gives Cursor access to:
+  - Mintlify component reference
+  - Writing standards and style guidelines
+  - Workflow guidance for documentation tasks
 </Step>
 
 <Step title="Customize project instructions">
-  Edit `AGENTS.md` in your project root to add project-specific terminology,
-  style preferences, and content boundaries.
+  Edit `AGENTS.md` in your project root to add project-specific context:
+
+  ```markdown
+  ## Terminology
+  - Use "workspace" not "project"
+  - Use "member" not "user"
+
+  ## Style preferences
+  - Use active voice and second person ("you")
+  - Keep sentences concise — one idea per sentence
+  - Use sentence case for headings
+  - Bold for UI elements: Click **Settings**
+  - Code formatting for file names, commands, paths
+
+  ## Content boundaries
+  - Don't document internal admin features
+  - Focus on user-facing functionality
+  ```
+
+  Cursor will automatically use `AGENTS.md` for project-specific guidance.
 </Step>
 
 <Step title="Start writing with Cursor">
-  Open a file and use Cursor's AI features to draft and edit documentation.
+  Open any MDX file and use Cursor's AI features:
+  - **Cmd/Ctrl + K**: Edit selected text
+  - **Cmd/Ctrl + L**: Chat with Cursor about your docs
+  - Cursor will reference Mintlify components and follow your style guide
 </Step>
 </Steps>
+
+## Common workflows
+
+### Creating a new page
+
+Ask Cursor to create a page with proper frontmatter and structure:
+
+```
+Create a new page docs/quickstart.mdx with:
+- Title: "Quickstart"
+- Description for getting started
+- Step-by-step setup using <Steps>
+```
+
+### Improving existing content
+
+Select text and use **Cmd/Ctrl + K** with prompts like:
+- "Make this more concise"
+- "Add a code example"
+- "Convert this to a Step component"
+
+### Checking documentation standards
+
+Run local preview to verify your changes:
+
+```bash
+mint dev
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Cursor doesn't recognize Mintlify components">
+  Make sure you ran `npx skills add https://mintlify.com/docs` in your docs directory.
+</Accordion>
+
+<Accordion title="AI suggestions don't match my style">
+  Update `AGENTS.md` with clearer style preferences and examples. The more specific you are, the better Cursor will match your voice.
+</Accordion>
+
+<Accordion title="How do I update the Mintlify skill?">
+  Re-run the install command:
+  ```bash
+  npx skills add https://mintlify.com/docs
+  ```
+</Accordion>
+</AccordionGroup>

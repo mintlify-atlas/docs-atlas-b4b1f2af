@@ -9,14 +9,31 @@ Set up Claude Code to help you write and maintain your Mintlify documentation.
 ## Prerequisites
 
 - Active Claude subscription (Pro, Max, or API access)
+- Node.js installed for the CLI
 
 ## Setup
 
 <Steps>
 <Step title="Install Claude Code">
+  Install the Claude Code CLI globally:
+
   ```bash
   npm install -g @anthropic-ai/claude-code
   ```
+
+  Authenticate with your Claude account:
+
+  ```bash
+  claude auth
+  ```
+</Step>
+
+<Step title="Navigate to your docs directory">
+  ```bash
+  cd /path/to/your/docs
+  ```
+
+  Ensure `docs.json` is in this directory.
 </Step>
 
 <Step title="Install the Mintlify skill">
@@ -26,18 +43,157 @@ Set up Claude Code to help you write and maintain your Mintlify documentation.
   npx skills add https://mintlify.com/docs
   ```
 
-  This gives Claude Code Mintlify's component reference, writing standards,
-  and workflow guidance.
+  This gives Claude Code access to:
+  - Complete Mintlify component library
+  - Documentation writing best practices
+  - Navigation and configuration patterns
+  - API reference setup guidelines
 </Step>
 
 <Step title="Customize project instructions">
-  Edit `AGENTS.md` in your project root to add project-specific terminology,
-  style preferences, and content boundaries.
+  Create or edit `AGENTS.md` in your project root:
+
+  ```markdown
+  # Documentation project instructions
+
+  ## About this project
+  - This is a documentation site built on Mintlify
+  - Pages are MDX files with YAML frontmatter
+  - Configuration lives in `docs.json`
+  - Run `mint dev` to preview locally
+  - Run `mint broken-links` to check links
+
+  ## Terminology
+  - Use "API key" not "token" for authentication
+  - Use "endpoint" not "route" for API paths
+
+  ## Style preferences
+  - Use active voice and second person ("you")
+  - Keep sentences concise — one idea per sentence
+  - Use sentence case for headings
+  - Bold for UI elements: Click **Settings**
+  - Code formatting for file names, commands, paths
+
+  ## Content boundaries
+  - Document all public API endpoints
+  - Exclude beta features unless explicitly noted
+  ```
+
+  Claude Code will use this file for project-specific context.
 </Step>
 
 <Step title="Start writing with Claude Code">
+  Launch Claude Code in your terminal:
+
   ```bash
   claude
   ```
+
+  Start a conversation about your documentation needs.
 </Step>
 </Steps>
+
+## Example workflows
+
+### Generate a complete page
+
+Ask Claude Code to create structured documentation:
+
+```
+Create a new API reference page for the /users endpoint:
+- Title: "Users API"
+- Include GET, POST, PUT, DELETE methods
+- Add request/response examples
+- Use ParamField for parameters
+```
+
+Claude Code will generate a properly formatted MDX file with Mintlify components.
+
+### Update navigation
+
+Ask Claude Code to modify `docs.json`:
+
+```
+Add the new users-api.mdx page to the API Reference section in docs.json
+```
+
+### Batch improvements
+
+Claude Code can work across multiple files:
+
+```
+Update all pages in /api-reference to use the new ResponseField component
+instead of the old Response component
+```
+
+### Content review
+
+Ask Claude Code to review existing documentation:
+
+```
+Review docs/quickstart.mdx and suggest improvements for:
+- Clarity and conciseness
+- Code example completeness
+- Proper use of Mintlify components
+```
+
+## Configuration tips
+
+### Set default behavior
+
+Add preferences to `AGENTS.md` to guide Claude Code's output:
+
+```markdown
+## AI Assistant preferences
+- Always use TypeScript for code examples
+- Include error handling in all examples
+- Add prerequisites to setup guides
+- Use Info callouts for important notes
+```
+
+### Project context
+
+Include links to key resources:
+
+```markdown
+## Key files
+- Main config: `docs.json`
+- Styles: `custom.css`
+- API spec: `openapi.json`
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Claude Code can't find Mintlify components">
+  Verify the skill is installed:
+  ```bash
+  npx skills list
+  ```
+
+  If not listed, reinstall:
+  ```bash
+  npx skills add https://mintlify.com/docs
+  ```
+</Accordion>
+
+<Accordion title="Generated pages don't match our style">
+  Be more specific in `AGENTS.md` with:
+  - Concrete examples of good vs. bad writing
+  - Specific component usage patterns
+  - Code example templates
+</Accordion>
+
+<Accordion title="How do I save context between sessions?">
+  Claude Code uses `AGENTS.md` and the skill configuration automatically. For project-specific patterns, document them in `AGENTS.md`.
+</Accordion>
+
+<Accordion title="Can I use Claude Code with API documentation?">
+  Yes! Claude Code can:
+  - Generate pages from OpenAPI specs
+  - Create API reference documentation
+  - Set up API playground configurations
+
+  Ask: "Generate API reference pages from my openapi.json file"
+</Accordion>
+</AccordionGroup>

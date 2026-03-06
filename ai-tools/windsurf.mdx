@@ -9,12 +9,15 @@ Set up Windsurf's Cascade AI assistant to help you write and maintain your Mintl
 ## Prerequisites
 
 - Windsurf editor installed
+- A Mintlify documentation project
 
 ## Setup
 
 <Steps>
 <Step title="Open your docs directory in Windsurf">
   Open the root of your documentation repository where `docs.json` is located.
+
+  **File → Open Folder** and select your docs directory.
 </Step>
 
 <Step title="Install the Mintlify skill">
@@ -24,16 +27,244 @@ Set up Windsurf's Cascade AI assistant to help you write and maintain your Mintl
   npx skills add https://mintlify.com/docs
   ```
 
-  This gives Windsurf Mintlify's component reference, writing standards,
-  and workflow guidance.
+  This gives Windsurf Cascade access to:
+  - Mintlify component reference and syntax
+  - Documentation writing standards
+  - Configuration patterns for `docs.json`
+  - Best practices for navigation and structure
 </Step>
 
 <Step title="Customize project instructions">
-  Edit `AGENTS.md` in your project root to add project-specific terminology,
-  style preferences, and content boundaries.
+  Edit `AGENTS.md` in your project root to add project-specific context:
+
+  ```markdown
+  # Documentation project instructions
+
+  ## About this project
+  - Documentation for [Your Product]
+  - Built with Mintlify
+  - Target audience: developers integrating our API
+  - Tone: technical but approachable
+
+  ## Terminology
+  - Use "authentication key" not "API key"
+  - Use "workspace" not "project" or "organization"
+  - Use "integration" not "plugin"
+
+  ## Style preferences
+  - Use active voice and second person ("you")
+  - Keep sentences concise — one idea per sentence
+  - Use sentence case for headings
+  - Bold for UI elements: Click **Settings**
+  - Code formatting for file names, commands, paths
+  - Always include error handling in code examples
+
+  ## Content boundaries
+  - Document all public-facing features
+  - Exclude internal tooling and admin features
+  - Include enterprise features with <Note>Enterprise plan required</Note>
+  ```
+
+  Cascade will automatically reference this file.
 </Step>
 
 <Step title="Start writing with Cascade">
-  Open a file and use Cascade to draft and edit documentation.
+  Open any MDX file and activate Cascade:
+  - **Cmd/Ctrl + Shift + P** → "Cascade: Open"
+  - Or click the Cascade icon in the sidebar
+
+  Cascade will understand your Mintlify components and project style.
 </Step>
 </Steps>
+
+## Working with Cascade
+
+### Creating new pages
+
+Ask Cascade to generate complete pages:
+
+```
+Create a new integration guide at docs/integrations/slack.mdx with:
+- Prerequisites section
+- Step-by-step setup using <Steps>
+- Code examples for Node.js and Python
+- Troubleshooting section with <Accordion>
+```
+
+Cascade will:
+- Generate proper frontmatter
+- Use appropriate Mintlify components
+- Follow your style guide from `AGENTS.md`
+- Include realistic code examples
+
+### Editing existing content
+
+Select text and ask Cascade to improve it:
+- "Make this introduction more engaging"
+- "Add error handling to this code example"
+- "Convert these bullets to a Steps component"
+- "Add a callout warning about rate limits"
+
+### Navigation updates
+
+Ask Cascade to modify your `docs.json`:
+
+```
+Add a new "Integrations" group to docs.json with:
+- integrations/overview.mdx
+- integrations/slack.mdx
+- integrations/github.mdx
+```
+
+### Multi-file operations
+
+Cascade can work across your entire docs site:
+
+```
+Update all API reference pages to:
+1. Use ResponseField instead of Response
+2. Add authentication examples
+3. Include rate limit information
+```
+
+## Advanced features
+
+### Using Cascade Flow
+
+For complex documentation tasks, use Cascade's Flow mode:
+
+1. **Cmd/Ctrl + Shift + P** → "Cascade: Start Flow"
+2. Describe your multi-step task
+3. Review and approve each step
+
+Example:
+```
+Create a complete quickstart guide:
+1. Generate quickstart.mdx with setup steps
+2. Add it to docs.json navigation
+3. Create example-app/ directory with sample code
+4. Link the example from the quickstart page
+```
+
+### Context awareness
+
+Cascade automatically understands:
+- Your `docs.json` structure
+- Existing pages and their organization
+- Custom components in your project
+- Style patterns from `AGENTS.md`
+
+### Code generation
+
+Ask Cascade to generate realistic examples:
+
+```
+Create a complete authentication example showing:
+- API key storage
+- Making authenticated requests
+- Error handling for 401/403
+- Token refresh logic
+```
+
+## Best practices
+
+### Provide context in AGENTS.md
+
+The more context you provide, the better Cascade performs:
+
+```markdown
+## Example pages
+Good example: docs/api-reference/users.mdx
+Style to match: docs/quickstart.mdx
+
+## Common patterns
+- All API pages include: description, auth, parameters, response, errors
+- All guides include: prerequisites, steps, next steps
+- Code examples show: setup, usage, error handling
+```
+
+### Use specific prompts
+
+Instead of: "Make this better"
+
+Try: "Make this introduction more concise and add a code example"
+
+### Review AI-generated content
+
+Always:
+- Test code examples
+- Verify component syntax
+- Check links and references
+- Preview with `mint dev`
+
+## Troubleshooting
+
+<AccordionGroup>
+<Accordion title="Cascade generates invalid Mintlify syntax">
+  1. Verify the skill is installed:
+     ```bash
+     npx skills list
+     ```
+  2. Reinstall if needed:
+     ```bash
+     npx skills add https://mintlify.com/docs
+     ```
+  3. Restart Windsurf to reload the skill
+</Accordion>
+
+<Accordion title="Generated content doesn't match our style">
+  Update `AGENTS.md` with:
+  - Specific examples of good writing from your docs
+  - Clear dos and don'ts
+  - Templates for common page types
+  - Links to reference pages
+
+  Example:
+  ```markdown
+  ## Style examples
+  ✅ Good: "Send a POST request to /api/users"
+  ❌ Bad: "You should send a POST request to /api/users"
+  ```
+</Accordion>
+
+<Accordion title="Cascade can't find referenced files">
+  Make sure you opened the root directory containing `docs.json`. Cascade needs the full project context.
+</Accordion>
+
+<Accordion title="How do I update the Mintlify skill?">
+  Re-run the install command:
+  ```bash
+  npx skills add https://mintlify.com/docs
+  ```
+  Then restart Windsurf.
+</Accordion>
+
+<Accordion title="Can Cascade work with OpenAPI specs?">
+  Yes! Ask Cascade to:
+  ```
+  Generate API reference pages from openapi.json in /api-reference/
+  ```
+  
+  Cascade will create properly formatted pages with ParamField and ResponseField components.
+</Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+<Card title="Writing with MDX" icon="pen-fancy" href="/essentials/markdown">
+  Learn about Mintlify components and markdown syntax
+</Card>
+
+<Card title="Code examples" icon="code" href="/essentials/code">
+  Add syntax-highlighted code blocks to your docs
+</Card>
+
+<Card title="Navigation setup" icon="map" href="/essentials/navigation">
+  Organize your docs.json navigation structure
+</Card>
+
+<Card title="Quickstart guide" icon="rocket" href="/quickstart">
+  Get your documentation site up and running
+</Card>
+</CardGroup>
